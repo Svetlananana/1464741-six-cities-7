@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Card from '../card/card';
+import CardScreen from '../card/card';
 
 
-export default function MainPage(props) {
+export default function MainPageScreen(props) {
   const {cardsCount} = props;
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -94,7 +95,7 @@ export default function MainPage(props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {new Array(cardsCount).fill().map((card) => <Card key={card}/>)}
+                {new Array(cardsCount).fill('').map((card, index) => <CardScreen key={index}/>)}
               </div>
             </section>
             <div className="cities__right-section">
@@ -107,8 +108,6 @@ export default function MainPage(props) {
   );
 }
 
-MainPage.propTypes = {
+MainPageScreen.propTypes = {
   cardsCount: PropTypes.number.isRequired,
 };
-
-// {Array.from(Array(cardsCount),(card) => <Card key={card}/>)}  - или такой способ лучше?
