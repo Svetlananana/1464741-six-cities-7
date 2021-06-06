@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Card() {
+export default function CardScreen() {
   return (
     <article className="cities__place-card place-card">
       <div className="place-card__mark">
@@ -38,4 +38,3 @@ export default function Card() {
     </article>
   );
 }
-//
