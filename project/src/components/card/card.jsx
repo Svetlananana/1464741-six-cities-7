@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function CardScreen() {
+export default function Card() {
   return (
     <article className="cities__place-card place-card">
       <div className="place-card__mark">

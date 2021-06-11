@@ -1,8 +1,8 @@
-import React from 'react';  // {Fragment}
+import React from 'react';
 import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import MainPageScreen from '../main-screen/main-page';
+import MainPageScreen from '../main-page-screen/main-page';
 import LoginScreen from '../login-screen/login-screen';
 import FavoritesScreen from '../favorites-screen/favorites-screen';
 import RoomScreen from '../room-screen/room-screen';
