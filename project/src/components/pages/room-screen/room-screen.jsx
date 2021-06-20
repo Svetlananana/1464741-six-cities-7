@@ -1,6 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {useParams, useHistory} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {propOffersTypes} from '../../../type-props';
 import {formatRating} from '../../../moks/utils';
 import PropTypes from 'prop-types';
@@ -10,6 +10,10 @@ export default function RoomScreen({ offers }) {
   const {id} = useParams();
 
   const room = offers.find((offer) => offer.id === +id);
+  if (room === -1) {
+    return <Redirect to="/" />;
+  }
+
   const {
     title,
     type,
