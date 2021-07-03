@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import Offer from '../offer/offer';
 import PropTypes from 'prop-types';
 import {propOffersTypes} from '../../type-props';
+import {PageTypes} from '../../const';
 
 const createFavoriteList = (array) => array.reduce((acc, elem) => {
   if (elem.city.name in acc) {
@@ -22,7 +23,7 @@ export default function FavoriteList({offers}) {
       <h1 className="favorites__title">Saved listing</h1>
       <ul className="favorites__list">
         {
-          Object.entries(favoritesList).map(([city, cityCards]) => (
+          Object.entries(favoritesList).map(([city, cityOffer]) => (
             <li key={city} className="favorites__locations-items">
               <div className="favorites__locations locations locations--current">
                 <div className="locations__item">
@@ -32,9 +33,11 @@ export default function FavoriteList({offers}) {
                 </div>
               </div>
               <div className="favorites__places">
-                {cityCards.map((card) => (
+                {cityOffer.map((offer) => (
                   <Offer
-                    key={card.id}
+                    key={offer.id}
+                    offer={offer}
+                    pageTypes={PageTypes['FAVORITES_PAGE']}
                   />))}
               </div>
             </li>
@@ -47,6 +50,6 @@ export default function FavoriteList({offers}) {
 
 FavoriteList.propTypes = {
   offers: PropTypes.arrayOf(
-    PropTypes.shape(propOffersTypes),
+    PropTypes.shape(propOffersTypes).isRequired,
   ),
 };

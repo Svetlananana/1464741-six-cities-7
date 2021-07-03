@@ -18,8 +18,8 @@ export const propOffersTypes = {
   city: PropTypes.shape({
     name: PropTypes.string.isRequired,
     location: PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
+      latitude: PropTypes.string.isRequired,
+      longitude: PropTypes.string.isRequired,
       zoom: PropTypes.number.isRequired,
     }),
   }),
@@ -33,11 +33,18 @@ export const propOffersTypes = {
   }),
   images: PropTypes.arrayOf(PropTypes.string.isRequired),
   location: PropTypes.shape({
-    latitude: PropTypes.number.isRequired,
-    longitude: PropTypes.number.isRequired,
+    latitude: PropTypes.string.isRequired,
+    longitude: PropTypes.string.isRequired,
     zoom: PropTypes.number.isRequired,
   }),
   maxAdults: PropTypes.number.isRequired,
 };
 
+export const propPageTypes = {
+  article: PropTypes.string.isRequired,
+  imgWrapper: PropTypes.string.isRequired,
+  divCardInfo: PropTypes.string.isRequired,
+  imgWidth: PropTypes.string.isRequired,
+  imgHeight: PropTypes.string.isRequired,
+};
 

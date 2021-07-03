@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {formatRating} from '../../moks/utils';
-import {propOfferTypes} from '../../type-props';
+import {propOfferTypes, propPageTypes} from '../../type-props';
 import PropTypes from 'prop-types';
 
 function PlaseCardMark() {
@@ -12,7 +12,7 @@ function PlaseCardMark() {
   );
 }
 
-export default function Offer({ card, setHoveredCard }) {
+export default function Offer({ offer, onMouseLeave, onMouseEnter, pageTypes }) {
 
   const {
     id,
@@ -23,23 +23,31 @@ export default function Offer({ card, setHoveredCard }) {
     isFavorite,
     isPremium,
     rating,
-  } = card;
+  } = offer;
+
+  const {
+    article,
+    imgWrapper,
+    divCardInfo,
+    imgWidth,
+    imgHeight,
+  } = pageTypes;
 
   const isActiveButtonClass = isFavorite ? 'place-card__bookmark-button--active' : '';
 
   return (
     <article
-      className="cities__place-card place-card"
-      onMouseEnter={() => setHoveredCard(card)}
-      onMouseLeave={() => setHoveredCard(null)}
+      className={`${article} place-card`}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       {isPremium ? <PlaseCardMark isPremium={isPremium} /> : isPremium }
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`/room/${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place"/>
+      <div className={`${imgWrapper} place-card__image-wrapper`}>
+        <Link to={`/offer/${id}`}>
+          <img className="place-card__image" src={previewImage} width={imgWidth} height={imgHeight} alt="Place"/>
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${divCardInfo} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -59,7 +67,7 @@ export default function Offer({ card, setHoveredCard }) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/room/${id}`}>{title}</Link>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -68,6 +76,8 @@ export default function Offer({ card, setHoveredCard }) {
 }
 
 Offer.propTypes = {
-  setHoveredCard: PropTypes.func.isRequired,
-  card: PropTypes.shape(propOfferTypes),
+  onMouseLeave: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  offer: PropTypes.shape(propOfferTypes),
+  pageTypes: PropTypes.shape(propPageTypes),
 };
