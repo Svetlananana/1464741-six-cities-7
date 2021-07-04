@@ -25,8 +25,8 @@ export const getOfferMock = () => ({
   bedrooms: getRandomNumber(1, 6),
   city: {
     location: {
-      latitude: getRandomFixedFloat(0, 60, 6),
-      longitude: getRandomFixedFloat(0, 60, 6),
+      latitude: `52.3${getRandomFixedFloat(0, 9999, 0)}`, // getRandomFixedFloat(0, 60, 6),
+      longitude: `4.8${getRandomFixedFloat(0, 9999, 0)}`, //getRandomFixedFloat(0, 60, 6),
       zoom: getRandomNumber(8, 13),
     },
     name: getRandomArrayItem(HOTEL_CITIES),
@@ -44,8 +44,8 @@ export const getOfferMock = () => ({
   isFavorite: getRandomBoolean(),
   isPremium: getRandomBoolean(),
   location: {
-    latitude: getRandomFixedFloat(0, 60, 14),
-    longitude: getRandomFixedFloat(0, 60, 14),
+    latitude: `52.3${getRandomFixedFloat(0, 9999, 0)}`,
+    longitude: `4.8${getRandomFixedFloat(0, 9999, 0)}`,
     zoom: getRandomNumber(8, 13),
   },
   maxAdults: getRandomNumber(0, 10),

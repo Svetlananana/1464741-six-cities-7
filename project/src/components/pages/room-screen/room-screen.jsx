@@ -1,18 +1,18 @@
-import React from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import React, {useState} from 'react';
+import {Redirect} from 'react-router-dom';
 import {useParams} from 'react-router-dom';
 import {propOffersTypes} from '../../../type-props';
 import {formatRating} from '../../../moks/utils';
 import PropTypes from 'prop-types';
-import {FormReviews} from '../../form/form-reviews';
+import {FormReviews} from '../../form-reviews/form-reviews';
+import Header from '../../header/header';
+import OffersList from '../../offer-list/offer-list';
+import Map from '../../map/map';
 
 export default function RoomScreen({ offers }) {
   const {id} = useParams();
 
   const room = offers.find((offer) => offer.id === +id);
-  if (room === -1) {
-    return <Redirect to="/" />;
-  }
 
   const {
     title,
@@ -25,38 +25,32 @@ export default function RoomScreen({ offers }) {
     isPremium,
     rating,
     images,
+    host,
+    description,
   } = room;
+
+  const {
+    // avatarUrl,
+    isPro,
+    name,
+  } = host;
+
+  const [hoveredCard, setHoveredCard] = useState(room);
+
+  if (room === -1) {
+    return <Redirect to="/" />;
+  }
+
+  const nearPlacesCard = offers.filter((card) => card !== room).slice(0, 3);
+
+  function onHoverCard(cardId) {
+    const currentCard = offers.find((offer) => offer.id === Number(cardId));
+    setHoveredCard(currentCard);
+  }
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link className="header__logo-link" to="/">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </Link>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to="/">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="/">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
-
+      <Header />
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -125,18 +119,16 @@ export default function RoomScreen({ offers }) {
                     <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
-              Angelina
+                    {name}
                   </span>
-                  <span className="property__user-status">
-              Pro
-                  </span>
+                  {isPro &&
+                    <span className="property__user-status">
+                    Pro
+                    </span>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-              A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <p className="property__text">
-              An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
+                    {description}
                   </p>
                 </div>
               </div>
@@ -170,108 +162,22 @@ export default function RoomScreen({ offers }) {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+            <Map
+              city={offers[0].city}
+              offers={offers}
+              hoveredCard={hoveredCard}
+            />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              <article className="near-places__card place-card">
-                <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <Link to="/">
-                    <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place"/>
-                  </Link>
-                </div>
-                <div className="place-card__info">
-                  <div className="place-card__price-wrapper">
-                    <div className="place-card__price">
-                      <b className="place-card__price-value">&euro;80</b>
-                      <span className="place-card__price-text">&#47;&nbsp;night</span>
-                    </div>
-                    <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-                      <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use xlinkHref="#icon-bookmark"></use>
-                      </svg>
-                      <span className="visually-hidden">In bookmarks</span>
-                    </button>
-                  </div>
-                  <div className="place-card__rating rating">
-                    <div className="place-card__stars rating__stars">
-                      <span style={{width: '80%'}}></span>
-                      <span className="visually-hidden">Rating</span>
-                    </div>
-                  </div>
-                  <h2 className="place-card__name">
-                    <Link to="/">Wood and stone place</Link>
-                  </h2>
-                  <p className="place-card__type">Private room</p>
-                </div>
-              </article>
-
-              <article className="near-places__card place-card">
-                <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <Link to="/">
-                    <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place"/>
-                  </Link>
-                </div>
-                <div className="place-card__info">
-                  <div className="place-card__price-wrapper">
-                    <div className="place-card__price">
-                      <b className="place-card__price-value">&euro;132</b>
-                      <span className="place-card__price-text">&#47;&nbsp;night</span>
-                    </div>
-                    <button className="place-card__bookmark-button button" type="button">
-                      <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use xlinkHref="#icon-bookmark"></use>
-                      </svg>
-                      <span className="visually-hidden">To bookmarks</span>
-                    </button>
-                  </div>
-                  <div className="place-card__rating rating">
-                    <div className="place-card__stars rating__stars">
-                      <span style={{width: '80%'}}></span>
-                      <span className="visually-hidden">Rating</span>
-                    </div>
-                  </div>
-                  <h2 className="place-card__name">
-                    <Link to="/">Canal View Prinsengracht</Link>
-                  </h2>
-                  <p className="place-card__type">Apartment</p>
-                </div>
-              </article>
-
-              <article className="near-places__card place-card">
-                <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <Link to="/">
-                    <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place"/>
-                  </Link>
-                </div>
-                <div className="place-card__info">
-                  <div className="place-card__price-wrapper">
-                    <div className="place-card__price">
-                      <b className="place-card__price-value">&euro;180</b>
-                      <span className="place-card__price-text">&#47;&nbsp;night</span>
-                    </div>
-                    <button className="place-card__bookmark-button button" type="button">
-                      <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use xlinkHref="#icon-bookmark"></use>
-                      </svg>
-                      <span className="visually-hidden">To bookmarks</span>
-                    </button>
-                  </div>
-                  <div className="place-card__rating rating">
-                    <div className="place-card__stars rating__stars">
-                      <span style={{width: '100%'}}></span>
-                      <span className="visually-hidden">Rating</span>
-                    </div>
-                  </div>
-                  <h2 className="place-card__name">
-                    <Link to="/">Nice, cozy, warm big bed apartment</Link>
-                  </h2>
-                  <p className="place-card__type">Apartment</p>
-                </div>
-              </article>
-            </div>
+            <OffersList
+              offers={nearPlacesCard}
+              onMouseEnter={onHoverCard}
+              onMouseLeave={() => setHoveredCard(room)}
+            />
           </section>
         </div>
       </main>

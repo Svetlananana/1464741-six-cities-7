@@ -1,15 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import Header from '../header/header';
-import FavoriteList from '../favorite-list/favorite-list';
-import FavoriteListEmpty from '../favorites-list-empty/favorites-list-empty';
+import Header from '../../header/header';
+import FavoriteList from '../../favorite-list/favorite-list';
+import FavoriteListEmpty from '../../favorites-list-empty/favorites-list-empty';
 import PropTypes from 'prop-types';
-import {propOffersTypes} from '../../type-props';
+import {propOffersTypes} from '../../../type-props';
 
-export default function FavoritesScreen(props) {
-  const {offers} = props;
+export default function FavoritesScreen({offers}) {
 
-  const favoriteDate = offers.length ? <FavoriteList offers={offers} /> : <FavoriteListEmpty />;
+  const favoriteDate = offers.length ? <FavoriteList offers={offers}/> : <FavoriteListEmpty />;
 
   return (
     <div className="page">
