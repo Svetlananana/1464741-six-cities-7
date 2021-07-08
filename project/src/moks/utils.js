@@ -17,7 +17,7 @@ export const getRandomArrayItem = (array) => array[getRandomNumber(0, array.leng
 
 export const getRandomArrayItems = (array) => new Array(getRandomNumber(0, array.length - 1)).fill().map(() => array[getRandomNumber(0, array.length - 1)]);
 
-export const generateMockOffersList = (count, getCardCallback) => new Array(count)
+export const generateMockList = (count, getCardCallback) => new Array(count)
   .fill('')
   .map(getCardCallback);
 
