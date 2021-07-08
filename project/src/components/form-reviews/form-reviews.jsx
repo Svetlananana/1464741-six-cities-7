@@ -16,7 +16,7 @@ export function FormReviews() {
   }
 
   function onFormSubmit(evt) {
-    evt.preventDafault(); // всё равно не работает
+    evt.preventDefault();
   }
 
   return (

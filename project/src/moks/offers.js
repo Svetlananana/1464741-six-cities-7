@@ -1,5 +1,5 @@
 import {nanoid} from 'nanoid';
-import {generateMockOffersList, generateId} from './utils';
+import {generateMockList, generateId} from './utils';
 
 import {
   HOTEL_CITIES,
@@ -56,4 +56,4 @@ export const getOfferMock = () => ({
   type: getRandomArrayItem(HOTEL_TYPE),
 });
 
-export const offers = generateMockOffersList(5, getOfferMock);
+export const offers = generateMockList(5, getOfferMock);

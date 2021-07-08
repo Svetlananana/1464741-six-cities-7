@@ -78,6 +78,6 @@ export default function Offer({ offer, onMouseLeave, onMouseEnter, pageTypes }) 
 Offer.propTypes = {
   onMouseLeave: PropTypes.func,
   onMouseEnter: PropTypes.func,
-  offer: PropTypes.shape(propOfferTypes),
+  offer: PropTypes.shape(propOfferTypes).isRequired,
   pageTypes: PropTypes.shape(propPageTypes),
 };

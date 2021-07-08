@@ -33,7 +33,6 @@ export default function Map({city, offers, hoveredCard}) {
             lng: longitude,
           },
           {
-            // icon: defaultIcon,
             icon:
             (id === hoveredCard.id)
               ? activeIcon
@@ -76,9 +75,9 @@ Map.propTypes = {
       zoom: PropTypes.number.isRequired,
     }).isRequired,
   }),
-  hoveredCard: PropTypes.object.isRequired,
   offers: PropTypes.arrayOf(
     PropTypes.shape(propOffersTypes).isRequired,
   ),
+  hoveredCard: PropTypes.object,
 };
 
