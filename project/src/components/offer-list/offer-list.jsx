@@ -7,7 +7,7 @@ import {propOffersTypes} from '../../type-props';
 export default function OffersList({offers, onMouseEnter, onMouseLeave, isMain = true}) {
 
   return (
-    <div className={isMain ? 'cities__places-list places__list tabs__content' : 'near-places__list places__list'}>
+    <div className={isMain ? 'cities__places-list places__list tabs__content' : ''}>
       {offers.map((offer) => (
         <Offer
           isMain={isMain}

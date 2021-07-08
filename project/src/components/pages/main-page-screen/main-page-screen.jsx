@@ -15,6 +15,8 @@ export default function MainPageScreen({offers}) {
   function onHoverCard(id) {
     const currentCard = offers.find((offer) => offer.id === Number(id));
     setHoveredCard(currentCard);
+    /* eslint-disable no-console */
+    console.log('%c 🦄', 'padding: 0.3rem 1.5rem; font-family: Roboto; font-size: 1.2em; line-height: 1.4em; color: white; background-color: #4158D0; background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);');
   }
 
   return (
@@ -82,7 +84,7 @@ export default function MainPageScreen({offers}) {
                 isMain
                 offers={offers}
                 onMouseEnter={onHoverCard}
-                onMouseLeave={() => setHoveredCard('')}
+                onMouseLeave={() => setHoveredCard({})}
               />
             </section>
             <div className="cities__right-section">

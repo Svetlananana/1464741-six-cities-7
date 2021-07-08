@@ -23,7 +23,7 @@ export default function FavoriteList({offers}) {
       <h1 className="favorites__title">Saved listing</h1>
       <ul className="favorites__list">
         {
-          Object.entries(favoritesList).map(([city, cityOffer]) => (
+          Object.entries(favoritesList).map(([city, cityOffers]) => (
             <li key={city} className="favorites__locations-items">
               <div className="favorites__locations locations locations--current">
                 <div className="locations__item">
@@ -33,7 +33,7 @@ export default function FavoriteList({offers}) {
                 </div>
               </div>
               <div className="favorites__places">
-                {cityOffer.map((offer) => (
+                {cityOffers.map((offer) => (
                   <Offer
                     key={offer.id}
                     offer={offer}
@@ -51,5 +51,5 @@ export default function FavoriteList({offers}) {
 FavoriteList.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape(propOffersTypes).isRequired,
-  ),
+  ).isRequired,
 };
