@@ -8,6 +8,7 @@ import RoomScreen from '../pages/room-screen/room-screen';
 import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 
 import {offers} from '../../moks/offers';
+import {reviews} from '../../moks/reviews';
 
 export default function App() {
 
@@ -24,6 +25,7 @@ export default function App() {
         <Route exact path={AppRoute.ROOM}>
           <RoomScreen
             offers={offers}
+            reviews={reviews}
           />
         </Route>
         <Route component={NotFoundScreen} />
