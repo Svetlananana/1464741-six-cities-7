@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Redirect} from 'react-router-dom';
 import {useParams} from 'react-router-dom';
+import {connect} from 'react-redux';
 import {propOffersTypes, propReviewTypes} from '../../../type-props';
 import {formatRating} from '../../../moks/utils';
 import PropTypes from 'prop-types';
@@ -10,7 +11,7 @@ import OffersList from '../../offer-list/offer-list';
 import Map from '../../map/map';
 import Reviews from '../../reviews/reviews';
 
-export default function RoomScreen({ offers, reviews }) {
+export function RoomScreen({ offers, reviews }) {
   const {id} = useParams();
 
   const room = offers.find((offer) => offer.id === +id);
@@ -37,18 +38,18 @@ export default function RoomScreen({ offers, reviews }) {
     name,
   } = host;
 
-  const [, setHoveredCard] = useState(room);
+  // const [, setHoveredCard] = useState(room);
 
-  if (room === {}) {
-    return <Redirect to="/" />; // а как правильно сделать условие?
+  if (room === undefined) {
+    return <Redirect to="/" />;
   }
 
   const nearPlacesCard = offers.filter((card) => card !== room).slice(0, 3);
 
-  function onHoverCard(cardId) {
-    const currentCard = offers.find((offer) => offer.id === Number(cardId));
-    setHoveredCard(currentCard);
-  }
+  // function onHoverCard(cardId) {
+  //   const currentCard = offers.find((offer) => offer.id === Number(cardId));
+  //   setHoveredCard(currentCard);
+  // }
 
   return (
     <div className="page">
@@ -123,10 +124,10 @@ export default function RoomScreen({ offers, reviews }) {
                   <span className="property__user-name">
                     {name}
                   </span>
-                  {isPro &&
+                  {isPro && (
                     <span className="property__user-status">
                     Pro
-                    </span>}
+                    </span> )}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
@@ -154,8 +155,8 @@ export default function RoomScreen({ offers, reviews }) {
             <div className="near-places__list places__list">
               <OffersList
                 offers={nearPlacesCard}
-                onMouseEnter={onHoverCard}
-                onMouseLeave={() => setHoveredCard(room)}
+                onMouseEnter={() => {}}
+                onMouseLeave={() => {}}
               />
             </div>
           </section>
@@ -172,3 +173,10 @@ RoomScreen.propTypes = {
   reviews: PropTypes.arrayOf(
     PropTypes.shape(propReviewTypes).isRequired),
 };
+
+const mapStateToProps = ({offers, reviews}) => ({
+  offers,
+  reviews,
+});
+
+export default connect(mapStateToProps)(RoomScreen);

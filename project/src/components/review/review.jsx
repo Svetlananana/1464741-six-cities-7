@@ -14,9 +14,10 @@ export default function Review({review}) {
   const {
     avatarUrl,
     name,
+    isPro,
   } = user;
 
-  const formatedDate = new Date(date).toLocaleDateString('en-US', {year: 'numeric', month: 'short'});
+  const formatedDate = new Date(date).toLocaleDateString('en-US', {month: 'short', year: 'numeric'});
 
   return (
     <li className="reviews__item">
@@ -27,6 +28,10 @@ export default function Review({review}) {
         <span className="reviews__user-name">
           {name}
         </span>
+        {isPro && (
+          <span className="property__user-status">Pro
+          </span>
+        )}
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
