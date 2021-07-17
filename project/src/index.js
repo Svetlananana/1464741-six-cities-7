@@ -5,8 +5,11 @@ import {reducer} from './store/reducer';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
+import {ActionCreator} from './store/action';
+import {offers} from './moks/offers';
 
 const store = createStore(reducer, composeWithDevTools());
+store.dispatch(ActionCreator.loadOffers(offers));
 
 ReactDOM.render(
   <React.StrictMode>
