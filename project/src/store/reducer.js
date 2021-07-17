@@ -1,12 +1,10 @@
 import {ActionType} from './action';
 import {DEFAULT_CITY, SortTypes} from '../const';
-import {offers} from '../moks/offers';
 import {reviews} from '../moks/reviews';
-import {getActiveCity} from '../utils';
 
 const initialState = {
   activeCity: DEFAULT_CITY,
-  offers: getActiveCity(offers, DEFAULT_CITY),
+  offers: [],
   reviews,
   sortType: SortTypes.DEFAULT,
 };
@@ -17,12 +15,16 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         activeCity: action.payload,
-        offers: getActiveCity(offers, action.payload),
       };
     case ActionType.CHANGE_SORT_TYPE:
       return {
         ...state,
         sortType: action.payload,
+      };
+    case ActionType.LOAD_OFFERS:
+      return {
+        ...state,
+        offers: action.payload,
       };
     default:
       return state;
