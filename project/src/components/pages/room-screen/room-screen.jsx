@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {propOffersTypes, propReviewTypes} from '../../../type-props';
 import {formatRating} from '../../../moks/utils';
 import PropTypes from 'prop-types';
-import {FormReviews} from '../../form-reviews/form-reviews';
+import FormReviews from '../../form-reviews/form-reviews';
 import Header from '../../header/header';
 import OffersList from '../../offer-list/offer-list';
 import Map from '../../map/map';
@@ -38,18 +38,11 @@ export function RoomScreen({ offers, reviews }) {
     name,
   } = host;
 
-  // const [, setHoveredCard] = useState(room);
-
   if (room === undefined) {
     return <Redirect to="/" />;
   }
 
   const nearPlacesCard = offers.filter((card) => card !== room).slice(0, 3);
-
-  // function onHoverCard(cardId) {
-  //   const currentCard = offers.find((offer) => offer.id === Number(cardId));
-  //   setHoveredCard(currentCard);
-  // }
 
   return (
     <div className="page">

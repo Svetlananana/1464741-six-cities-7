@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function SortingItem({isActive, sortType, onChangeSorting}) {
+export default function SortingItem({isActive, sortType, onChangeSort}) {
 
   function handleSortingClick() {
-    onChangeSorting(sortType);
+    onChangeSort(sortType);
   }
 
   return (
@@ -20,5 +20,5 @@ export default function SortingItem({isActive, sortType, onChangeSorting}) {
 SortingItem.propTypes = {
   isActive: PropTypes.bool.isRequired,
   sortType: PropTypes.string.isRequired,
-  onChangeSorting: PropTypes.func.isRequired,
+  onChangeSort: PropTypes.func.isRequired,
 };

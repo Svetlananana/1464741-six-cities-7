@@ -7,7 +7,7 @@ import SortingItem from '../sorting-item/sorting-item';
 
 export function SortingPlaces({sortType, onChangeSort}) {
 
-  const [sortingPlaces, setSortingPlaces] = useState(false);
+  const [sortingPlaces, setSortingPlaces] = useState(false); // переименовать оупен
 
   function handleSortingClick() {
     setSortingPlaces((prevState) => !prevState);
@@ -59,4 +59,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SortingPlaces);
-//

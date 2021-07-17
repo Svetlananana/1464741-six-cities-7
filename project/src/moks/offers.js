@@ -56,4 +56,4 @@ export const getOfferMock = () => ({
   type: getRandomArrayItem(HOTEL_TYPE),
 });
 
-export const offers = generateMockList(5, getOfferMock);
+export const offers = generateMockList(20, getOfferMock);

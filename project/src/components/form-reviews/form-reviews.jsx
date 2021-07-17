@@ -3,7 +3,7 @@ import FormStarsList from '../form-stars-list/form-stars-list';
 
 const MIN_SIMBOL_COUNT = 50;
 
-export function FormReviews() {
+export default function FormReviews() {
   const [, setRating] = useState('');
   const [review, setReview] = useState('');
 

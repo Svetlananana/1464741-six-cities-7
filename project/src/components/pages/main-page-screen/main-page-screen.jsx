@@ -8,13 +8,14 @@ import OffersList from '../../offer-list/offer-list';
 import CitiesList from '../../cities-list/cities-list';
 import Map from '../../map/map';
 import MainEmpty from '../../main-empty/main-empty';
-import {SortingPlaces} from '../../sorting-places/sorting-places';
+import SortingPlaces from '../../sorting-places/sorting-places';
+import {getActiveCity} from '../../../utils';
 
 
-export function MainPageScreen({offers, activeCity, sortType}) {
+export function MainPageScreen({offers, activeCity, sortType, offersByCity}) {
 
   const [hoveredCard, setHoveredCard] = useState({});
-  const filteredOffers = getFilteredOffers(sortType, offers);
+  const filteredOffers = getFilteredOffers(sortType, offersByCity);
 
   function onHoverCard(id) {
     const currentCard = offers.find((offer) => offer.id === Number(id));
@@ -69,12 +70,16 @@ MainPageScreen.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape(propOffersTypes).isRequired,
   ),
+  offersByCity: PropTypes.arrayOf(
+    PropTypes.shape(propOffersTypes).isRequired,
+  ),
   activeCity: PropTypes.string.isRequired,
   sortType: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
+  offersByCity: getActiveCity(state.offers, state.activeCity),
   activeCity: state.activeCity,
   sortType: state.sortType,
 });
