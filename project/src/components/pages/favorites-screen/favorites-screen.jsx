@@ -1,12 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {propOffersTypes} from '../../../type-props';
 import Header from '../../header/header';
 import FavoriteList from '../../favorite-list/favorite-list';
 import FavoriteListEmpty from '../../favorites-list-empty/favorites-list-empty';
-import PropTypes from 'prop-types';
-import {propOffersTypes} from '../../../type-props';
 
-export default function FavoritesScreen({offers}) {
+export function FavoritesScreen({offers}) {
 
   const favoriteDate = offers.length ? <FavoriteList offers={offers}/> : <FavoriteListEmpty />;
 
@@ -33,3 +34,9 @@ FavoritesScreen.propTypes = {
     PropTypes.shape(propOffersTypes),
   ),
 };
+
+const mapStateToProps = ({offers}) => ({
+  offers: offers,
+});
+
+export default connect(mapStateToProps, null)(FavoritesScreen);

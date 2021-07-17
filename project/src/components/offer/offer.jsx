@@ -4,14 +4,6 @@ import {formatRating} from '../../moks/utils';
 import {propOfferTypes, propPageTypes} from '../../type-props';
 import PropTypes from 'prop-types';
 
-function PlaseCardMark() {
-  return (
-    <div className="place-card__mark">
-      <span>Premium</span>
-    </div>
-  );
-}
-
 export default function Offer({ offer, onMouseLeave, onMouseEnter, pageTypes }) {
 
   const {
@@ -41,7 +33,11 @@ export default function Offer({ offer, onMouseLeave, onMouseEnter, pageTypes }) 
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      {isPremium ? <PlaseCardMark isPremium={isPremium} /> : isPremium }
+      {isPremium && (
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+      )}
       <div className={`${imgWrapper} place-card__image-wrapper`}>
         <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width={imgWidth} height={imgHeight} alt="Place"/>
