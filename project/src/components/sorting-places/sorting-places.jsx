@@ -7,20 +7,20 @@ import SortingItem from '../sorting-item/sorting-item';
 
 export function SortingPlaces({sortType, onChangeSort}) {
 
-  const [sortingPlaces, setSortingPlaces] = useState(false); // переименовать оупен
+  const [sortingPlacesOpen, setSortingPlacesOpen] = useState(false);
 
   function handleSortingClick() {
-    setSortingPlaces((prevState) => !prevState);
+    setSortingPlacesOpen((prevState) => !prevState);
   }
 
   function handleSortingChange(type) {
     onChangeSort(type);
-    setSortingPlaces(false);
+    setSortingPlacesOpen(false);
   }
 
   return (
     <form className="places__sorting" action="#" method="get">
-      <span className="places__sorting-caption">Sort by</span>
+      <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex="0" onClick={handleSortingClick}>
         {sortType}
         <svg className="places__sorting-arrow" width="7" height="4">
@@ -28,7 +28,7 @@ export function SortingPlaces({sortType, onChangeSort}) {
         </svg>
       </span>
       <ul className={`places__options places__options--custom
-      ${sortingPlaces && 'places__options--opened'}`}
+      ${sortingPlacesOpen && 'places__options--opened'}`}
       >
         {Object.values(SortTypes).map((sort) => (
           <SortingItem

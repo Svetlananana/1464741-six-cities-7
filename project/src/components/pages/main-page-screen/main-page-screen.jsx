@@ -37,7 +37,7 @@ export function MainPageScreen({offers, activeCity, sortType, offersByCity}) {
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offers.length} {offers.lenth > 1 ? 'places' : 'place'} to stay in {activeCity}</b>
+                <b className="places__found">{offersByCity.length} {offersByCity.length > 1 ? 'places' : 'place'} to stay in {activeCity}</b>
                 <SortingPlaces />
                 <OffersList
                   isMain
@@ -50,7 +50,7 @@ export function MainPageScreen({offers, activeCity, sortType, offersByCity}) {
                 <section className="cities__map map">
                   <Map
                     city={offers[0].city}
-                    offers={offers}
+                    offers={offersByCity}
                     hoveredCard={hoveredCard}
                   />
                 </section>
