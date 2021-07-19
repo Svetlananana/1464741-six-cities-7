@@ -78,6 +78,6 @@ Map.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape(propOffersTypes).isRequired,
   ),
-  hoveredCard: PropTypes.object,
+  hoveredCard: PropTypes.object.isRequired,
 };
 
