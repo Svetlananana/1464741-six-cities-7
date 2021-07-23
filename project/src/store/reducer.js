@@ -1,11 +1,11 @@
-import {ActionType} from './action';
+import {ActionCreator, ActionType} from './action';
 import {DEFAULT_CITY, SortTypes, AuthorizationStatus} from '../const';
 import {reviews} from '../moks/reviews';
 
 const initialState = {
   activeCity: DEFAULT_CITY,
   offers: [],
-  reviews,
+  reviews: [],
   sortType: SortTypes.DEFAULT,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   isDataLoaded: false,
@@ -17,6 +17,12 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         offers: action.payload,
+        isDataLoaded: true,
+      };
+    case ActionType.LOAD_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload,
         isDataLoaded: true,
       };
     case ActionType.REQUIRED_AUTHORIZATION:

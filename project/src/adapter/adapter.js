@@ -22,7 +22,29 @@ export function adaptOfferToClient(offer) {
   return adaptedOffer;
 }
 
-export const adaptOffersToClient = (offers) => {
+export function adaptOffersToClient(offers) {
   const adaptedOffers = offers.map(adaptOfferToClient);
   return adaptedOffers;
-};
+}
+
+export function adaptReviewToClient(review) {
+  const adaptedReview = {
+    ...review,
+    user: {
+      ...review.user,
+      avatarUrl: review.user.avatar_url,
+      isPro: review.user.is_pro,
+    },
+  };
+
+  delete adaptedReview.user.avatar_url;
+  delete adaptedReview.user.is_pro;
+
+  return adaptedReview;
+}
+
+export function adaptReviewsToClien(reviews) {
+  const adaptedReviews = reviews.map(adaptReviewToClient);
+  return adaptedReviews;
+}
+//

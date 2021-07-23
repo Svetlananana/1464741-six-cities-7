@@ -7,7 +7,7 @@ export const AppRoutes = {
 
 export const APIRoutes = {
   OFFERS: '/hotels',
-  REWIEWS: '/comments',
+  REVIEWS: '/comments',
   LOGIN: '/login',
   LOGOUT: '/logout',
 };
