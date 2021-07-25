@@ -1,20 +1,20 @@
 import {ActionCreator} from './action';
 import {AuthorizationStatus, APIRoutes} from '../const';
-import {adaptOffersToClient, adaptReviewsToClien} from '../adapter/adapter';
+import {adaptOffersToClient, adaptReviewsToClient} from '../adapter/adapter';
 
-export const fetchOffers = () => (dispatch, getState, api) => {
+export const fetchOffers = () => (dispatch, getState, api) => (
   api.get(APIRoutes.OFFERS)
     .then(({ data }) => adaptOffersToClient(data))
-    .then((offers) => dispatch(ActionCreator.loadOffers(offers)));
+    .then((offers) => dispatch(ActionCreator.loadOffers(offers)))
   // .then((offers) => console.log(offers));
-};
+);
 
-export const fetchReviews = (id) => (dispatch, getState, api) => {
+export const fetchReviews = (id) => (dispatch, getState, api) => (
   api.get(`${APIRoutes.REVIEWS}/${id}`)
-    .then(({data}) => adaptReviewsToClien(data))
+    .then(({data}) => adaptReviewsToClient(data))
     .then((reviews) => dispatch(ActionCreator.loadReviews(reviews)))
-    .then((reviews) => console.log(reviews));
-};
+    .catch(() => {})
+);
 
 export const checkAuth = () => (dispatch, getState, api) => (
   api.get(APIRoutes.LOGIN)

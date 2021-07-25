@@ -43,8 +43,7 @@ export function adaptReviewToClient(review) {
   return adaptedReview;
 }
 
-export function adaptReviewsToClien(reviews) {
+export function adaptReviewsToClient(reviews) {
   const adaptedReviews = reviews.map(adaptReviewToClient);
   return adaptedReviews;
 }
-//

@@ -1,5 +1,7 @@
 import {SortTypes} from './const';
 
+export const formatRating = (rating) => `${rating * 10}%`;
+
 export const getActiveCity = (array, activeCity) =>
   array.filter(({city}) => city.name  === activeCity);
 

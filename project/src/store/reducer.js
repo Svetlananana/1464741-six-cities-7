@@ -1,6 +1,5 @@
-import {ActionCreator, ActionType} from './action';
+import {ActionType} from './action';
 import {DEFAULT_CITY, SortTypes, AuthorizationStatus} from '../const';
-import {reviews} from '../moks/reviews';
 
 const initialState = {
   activeCity: DEFAULT_CITY,
