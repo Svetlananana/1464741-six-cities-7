@@ -9,6 +9,7 @@ import FavoritesScreen from '../pages/favorites-screen/favorites-screen';
 import RoomScreen from '../pages/room-screen/room-screen';
 import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 import LoadingScreen from '../pages/loading-screen/loading-screen';
+import PrivateRoute from '../private-route/private-route';
 import {AuthorizationStatus} from '../../const';
 
 const isCheckedAuth = (authorizationStatus) => authorizationStatus === AuthorizationStatus.UNKNOWN;
@@ -33,7 +34,10 @@ export function App({authorizationStatus, isDataLoaded}) {
       <Switch>
         <Route exact path={AppRoutes.MAIN} component={MainPageScreen} />
         <Route exact path={AppRoutes.LOGIN} component={LoginScreen} />
-        <Route exact path={AppRoutes.FAVORITES} component={FavoritesScreen} />
+        <PrivateRoute
+          exact path={AppRoutes.FAVORITES}
+          render={() => <FavoritesScreen />}
+        />
         <Route exact path={AppRoutes.ROOM} component={RoomScreen} />
         <Route component={NotFoundScreen} />
       </Switch>
