@@ -1,5 +1,5 @@
 import React from 'react';
-import {formatRating} from '../../moks/utils';
+import {formatRating} from '../../utils';
 import PropTypes from 'prop-types';
 import {propReviewTypes} from '../../type-props';
 
