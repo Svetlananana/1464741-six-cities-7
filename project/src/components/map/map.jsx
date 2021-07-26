@@ -70,8 +70,8 @@ export default function Map({city, offers, hoveredCard}) {
 Map.propTypes = {
   city: PropTypes.shape({
     location: PropTypes.shape({
-      latitude: PropTypes.string.isRequired,
-      longitude: PropTypes.string.isRequired,
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
       zoom: PropTypes.number.isRequired,
     }).isRequired,
   }),

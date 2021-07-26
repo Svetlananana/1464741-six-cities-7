@@ -1,20 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Redirect} from 'react-router-dom';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {propOffersTypes, propReviewTypes} from '../../../type-props';
-import {formatRating} from '../../../moks/utils';
+import {formatRating} from '../../../utils';
 import PropTypes from 'prop-types';
 import FormReviews from '../../form-reviews/form-reviews';
 import Header from '../../header/header';
 import OffersList from '../../offer-list/offer-list';
 import Map from '../../map/map';
 import Reviews from '../../reviews/reviews';
+import { fetchReviews } from '../../../store/api-actions';
 
-export function RoomScreen({ offers, reviews }) {
+export function RoomScreen({ offers, reviews, loadReviews }) {
   const {id} = useParams();
 
   const room = offers.find((offer) => offer.id === +id);
+
+  useEffect(() => {
+    loadReviews(id);
+  }, [id, loadReviews]);
 
   const {
     title,
@@ -165,6 +170,7 @@ RoomScreen.propTypes = {
   ),
   reviews: PropTypes.arrayOf(
     PropTypes.shape(propReviewTypes).isRequired),
+  loadReviews: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({offers, reviews}) => ({
@@ -172,4 +178,8 @@ const mapStateToProps = ({offers, reviews}) => ({
   reviews,
 });
 
-export default connect(mapStateToProps)(RoomScreen);
+const mapDispatchToProps = {
+  loadReviews: fetchReviews,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RoomScreen);

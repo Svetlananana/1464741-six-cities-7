@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {formatRating} from '../../moks/utils';
+import {formatRating} from '../../utils';
 import {propOfferTypes, propPageTypes} from '../../type-props';
 import PropTypes from 'prop-types';
 

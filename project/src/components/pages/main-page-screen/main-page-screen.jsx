@@ -85,3 +85,120 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(MainPageScreen);
+
+// const TIMEOUTE = 1000;
+
+// const makeSoupp = () => {
+//   console.log('> Иду за продуктами');
+//   const products = ['Капуста', 'Картофель', 'Мясо'];
+
+//   setTimeout(() => {
+//     console.log(`> Нарезаю продукты: ${products.join(', ')}`);
+
+//     setTimeout(() => {
+//       console.log('> Продукты нарезаны!');
+
+//       setTimeout(() => {
+//         console.log(`> Начинаю варить суп из: ${products.join(', ')}`);
+
+//         setTimeout(() => Math.random() > 0.5
+//           ? console.log('> Суп готов!')
+//           : console.log('> Упс! Сломалась плита.'), TIMEOUTE);
+//       }, TIMEOUTE);
+//     }, TIMEOUTE);
+//   }, TIMEOUTE);
+// };
+// makeSoupp();
+
+// const buyProducts = () => {
+//   console.log('> Иду за продуктами');
+
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       const products = ['Капуста', 'Картофель', 'Мясо'];
+//       resolve(products);
+//     }, TIMEOUTE);
+//   });
+// };
+
+// const prepareProducts = (products) => {
+//   console.log(`> Нарезаю продукты: ${products.join(`, `)}`);
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       console.log(`> Продукты нарезаны!`);
+//       resolve(products);
+//     }, TIMEOUTE);
+//   });
+// };
+
+// const makeSoup = (preparedProducts) => {
+//   console.log(`> Начинаю варить суп из: ${preparedProducts.join(`, `)}`);
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       return Math.random() > 0.5
+//         ? resolve(`> Суп готов!`)
+//         : reject(`> Упс! Сломалась плита.`);
+//     }, TIMEOUTE);
+//   });
+// };
+
+// buyProducts()
+//   .then(prepareProducts)
+//   .then(makeSoup)
+//   .then((result) => console.log(result))
+//   .catch((error) => console.log(error));
+
+// const makeThing = (number) => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       resolve(`Это действие №${number}`);
+//     }, TIMEOUTE);
+//   });
+// };
+
+// const firstThing = makeThing(1);
+// const secondThing = makeThing(2);
+// const thirdThing = makeThing(3);
+
+// Promise
+//   .race([
+//     firstThing,
+//     secondThing,
+//     thirdThing
+//   ])
+//   .then((value) => console.log(value));
+
+// const URL = 'https://jsonplaceholder.typicode.com/posts';
+
+// const getPosts = async () => {
+//   const response = await fetch(URL);
+//   const posts = await response.json();
+//   return posts;
+// };
+
+// (async () => {
+//     const posts = await getPosts()
+//     console.log('Список публикаций: ');
+//     console.log(posts);
+// })();
+// //
+// const URL = 'https://jsonplaceholder.typicode';
+
+// const getPosts = async () => {
+//     let response;
+//     try {
+//         response = await fetch(URL);
+//     } catch (error) {
+//         console.log(error);
+//         return [];
+//     }
+
+//   const posts = await response.json();
+//   return posts;
+// };
+
+// (async () => {
+//     const posts = await getPosts()
+//     console.log('Список публикаций: ');
+//     console.log(posts);
+// })();

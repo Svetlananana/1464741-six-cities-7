@@ -1,8 +1,15 @@
-export const AppRoute = {
+export const AppRoutes = {
   MAIN: '/',
   LOGIN: '/login',
   FAVORITES: '/favorites',
   ROOM: '/offer/:id',
+};
+
+export const APIRoutes = {
+  OFFERS: '/hotels',
+  REVIEWS: '/comments',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
 };
 
 export const PageTypes = {
@@ -36,6 +43,12 @@ export const SortTypes = {
   PRICE_LOW: 'Price: low to high',
   PRICE_HIGH: 'Price: high to low',
   TOP_RATED: 'Top rated first',
+};
+
+export const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
 };
 
 export const CITIES_NAMES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
