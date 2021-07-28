@@ -1,13 +1,15 @@
 import {ActionType} from './action';
-import {DEFAULT_CITY, SortTypes, AuthorizationStatus} from '../const';
+import {DEFAULT_CITY, SortType, AuthorizationStatus} from '../const';
 
 const initialState = {
   activeCity: DEFAULT_CITY,
   offers: [],
   reviews: [],
-  sortType: SortTypes.DEFAULT,
+  userData: {},
+  sortType: SortType.DEFAULT,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   isDataLoaded: false,
+  isReviewLoaded: false,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -22,12 +24,18 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         reviews: action.payload,
-        isDataLoaded: true,
+        // isDataLoaded: true,
+        isReviewLoaded: true,
       };
     case ActionType.REQUIRED_AUTHORIZATION:
       return {
         ...state,
         authorizationStatus: action.payload,
+      };
+    case ActionType.LOAD_USER_DATA:
+      return {
+        ...state,
+        userData: action.payload,
       };
     case ActionType.LOGOUT:
       return {
