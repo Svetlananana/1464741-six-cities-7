@@ -4,6 +4,7 @@ const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
 
 const HttpCode = {
+  BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
 };
 
@@ -25,6 +26,13 @@ export const createAPI = (onUnauthorized) => {
 
     if (response.status === HttpCode.UNAUTHORIZED) {
       onUnauthorized();
+      // throw err;
+    }
+
+    if (response.status === HttpCode.BAD_REQUEST) {
+      // eslint-disable-next-line no-console
+      console.log('BAD REQUEST:', response);
+      // throw err;
     }
 
     throw err;
@@ -34,5 +42,3 @@ export const createAPI = (onUnauthorized) => {
 
   return api;
 };
-
-//
