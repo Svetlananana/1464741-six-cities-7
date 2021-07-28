@@ -1,11 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import Offer from '../offer/offer';
 import PropTypes from 'prop-types';
 import {propOffersTypes} from '../../type-props';
-import {PageTypes} from '../../const';
+import {PageType} from '../../const';
+import Offer from '../offer/offer';
 
-const createFavoriteList = (array) => array.reduce((acc, elem) => {
+const createFavoritesList = (array) => array.reduce((acc, elem) => {
   if (elem.city.name in acc) {
     acc[elem.city.name].push(elem);
     return acc;
@@ -14,9 +14,9 @@ const createFavoriteList = (array) => array.reduce((acc, elem) => {
   return acc;
 }, {});
 
-export default function FavoriteList({offers}) {
+export default function FavoritesList({offers}) {
 
-  const favoritesList = createFavoriteList(offers.filter((elem) => elem.isFavorite));
+  const favoritesList = createFavoritesList(offers.filter((elem) => elem.isFavorite));
 
   return (
     <section className="favorites">
@@ -37,7 +37,7 @@ export default function FavoriteList({offers}) {
                   <Offer
                     key={offer.id}
                     offer={offer}
-                    pageTypes={PageTypes['FAVORITES_PAGE']}
+                    pageTypes={PageType['FAVORITES_PAGE']}
                   />))}
               </div>
             </li>
@@ -48,7 +48,7 @@ export default function FavoriteList({offers}) {
   );
 }
 
-FavoriteList.propTypes = {
+FavoritesList.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape(propOffersTypes).isRequired,
   ).isRequired,

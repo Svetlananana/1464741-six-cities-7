@@ -49,7 +49,7 @@ export function MainPageScreen({offers, activeCity, sortType, offersByCity}) {
               <div className="cities__right-section">
                 <section className="cities__map map">
                   <Map
-                    city={offers[0].city}
+                    city={filteredOffers[0].city}
                     offers={offersByCity}
                     hoveredCard={hoveredCard}
                   />

@@ -6,11 +6,12 @@ const REQUEST_TIMEOUT = 5000;
 const HttpCode = {
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
+  NOT_FOUND: 404,
 };
 
 const token = localStorage.getItem('token') ?? '';
 
-export const createAPI = (onUnauthorized) => {
+export const createAPI = (onUnauthorized, onNotFound) => { // доделать обработчики ошибок
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
@@ -26,13 +27,18 @@ export const createAPI = (onUnauthorized) => {
 
     if (response.status === HttpCode.UNAUTHORIZED) {
       onUnauthorized();
-      // throw err;
+      throw err;
     }
 
     if (response.status === HttpCode.BAD_REQUEST) {
       // eslint-disable-next-line no-console
       console.log('BAD REQUEST:', response);
-      // throw err;
+      throw err;
+    }
+
+    if (response.status === HttpCode.NOT_FOUND) {
+      onNotFound();
+      throw err;
     }
 
     throw err;

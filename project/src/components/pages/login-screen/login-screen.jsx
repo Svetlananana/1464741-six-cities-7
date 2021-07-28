@@ -1,9 +1,8 @@
 import React, {useRef} from 'react';
-// import {useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {login} from '../../../store/api-actions';
-import {AppRoutes} from '../../../const';
+import {AppRoute} from '../../../const';
 import {Link} from 'react-router-dom';
 import Header from '../../header/header';
 
@@ -11,8 +10,6 @@ export function LoginScreen({activeCity, onSubmit}) {
 
   const loginRef = useRef();
   const passwordRef = useRef();
-
-  // const history = useHistory();
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -44,7 +41,7 @@ export function LoginScreen({activeCity, onSubmit}) {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoutes.MAIN}>
+              <Link className="locations__item-link" to={AppRoute.MAIN}>
                 <span>{activeCity}</span>
               </Link>
             </div>

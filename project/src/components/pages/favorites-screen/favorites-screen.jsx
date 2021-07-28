@@ -4,20 +4,26 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {propOffersTypes} from '../../../type-props';
 import Header from '../../header/header';
-import FavoriteList from '../../favorite-list/favorite-list';
+import FavoritesList from '../../favorite-list/favorite-list';
 import FavoriteListEmpty from '../../favorites-list-empty/favorites-list-empty';
 
 export function FavoritesScreen({offers}) {
 
-  const favoriteDate = offers.length ? <FavoriteList offers={offers}/> : <FavoriteListEmpty />;
+  const favoritesOffers = offers.filter((offer) => offer.isFavorite);
+
+  const isFavoritesEmpty = favoritesOffers.length === 0;
+  // const isFavoritesEmpty = offers.length === 0;
 
   return (
     <div className="page">
       <Header/>
 
-      <main className="page__main page__main--favorites">
+      <main className={`page__main page__main--favorites ${isFavoritesEmpty && ('page__main--favorites-empty')}`}>
         <div className="page__favorites-container container">
-          {favoriteDate}
+          <section className={`favorites ${isFavoritesEmpty && ('favorites--empty')}`}>
+            {isFavoritesEmpty ? (<FavoriteListEmpty />) :
+              (<FavoritesList offers={offers}/>)}
+          </section>
         </div>
       </main>
       <footer className="footer container">
