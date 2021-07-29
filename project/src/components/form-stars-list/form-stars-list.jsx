@@ -1,36 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {StarsRating} from '../../const';
 
-const StarsRating = {
-  PERFECT: {
-    value: 5,
-    title: 'perfect',
-  },
-  GOOD: {
-    value: 4,
-    title: 'good',
-  },
-  NOT_BAD: {
-    value: 3,
-    title: 'not bad',
-  },
-  BADLY: {
-    value: 2,
-    title: 'badly',
-  },
-  TERRIBLY: {
-    value: 1,
-    title: 'terribly',
-  },
-};
-
-export default function FormStarsList({onChange}) {
+export default function FormStarsList({rating, setRating}) {
 
   return(
     <div className="reviews__rating-form form__rating">
       {Object.values(StarsRating).map(({value, title}) => (
         <React.Fragment key={title}>
-          <input className="form__rating-input visually-hidden" name="rating" value={value} id={`${value}-stars`} type="radio" onChange={onChange} />
+          <input className="form__rating-input visually-hidden"
+            name="rating" value={value} id={`${value}-stars`} type="radio"
+            onChange={(evt) => setRating(Number(evt.target.value))}
+            checked={rating === value}
+          />
           <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title={title}>
             <svg className="form__star-image" width="37" height="33">
               <use xlinkHref="#icon-star" />
@@ -43,5 +25,6 @@ export default function FormStarsList({onChange}) {
 }
 
 FormStarsList.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  rating: PropTypes.number.isRequired,
+  setRating: PropTypes.func.isRequired,
 };
