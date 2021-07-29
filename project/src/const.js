@@ -3,6 +3,7 @@ export const AppRoute = {
   LOGIN: '/login',
   FAVORITES: '/favorites',
   ROOM: '/offer/:id',
+  NOT_FOUND: '/not-found',
 };
 
 export const APIRoute = {
@@ -10,6 +11,7 @@ export const APIRoute = {
   REVIEWS: '/comments',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  OFFERS_NEARBY: '/nearby',
 };
 
 export const PageType = {
@@ -35,6 +37,29 @@ export const PageType = {
     divCardInfo: '',
     imgWidth: '260',
     imgHeight: '200',
+  },
+};
+
+export const StarsRating = {
+  PERFECT: {
+    value: 5,
+    title: 'perfect',
+  },
+  GOOD: {
+    value: 4,
+    title: 'good',
+  },
+  NOT_BAD: {
+    value: 3,
+    title: 'not bad',
+  },
+  BADLY: {
+    value: 2,
+    title: 'badly',
+  },
+  TERRIBLY: {
+    value: 1,
+    title: 'terribly',
   },
 };
 
