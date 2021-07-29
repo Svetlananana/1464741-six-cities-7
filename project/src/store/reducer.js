@@ -5,11 +5,14 @@ const initialState = {
   activeCity: DEFAULT_CITY,
   offers: [],
   reviews: [],
+  nearbyOffers: [],
   userData: {},
+  room: {},
   sortType: SortType.DEFAULT,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   isDataLoaded: false,
   isReviewLoaded: false,
+  isRoomDataLoaded: false,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -26,6 +29,17 @@ export const reducer = (state = initialState, action) => {
         reviews: action.payload,
         // isDataLoaded: true,
         isReviewLoaded: true,
+      };
+    case ActionType.LOAD_NEARBY_OFFERS:
+      return {
+        ...state,
+        nearbyOffers: action.payload,
+      };
+    case ActionType.LOAD_ROOM:
+      return {
+        ...state,
+        offer: action.payload,
+        isRoomDataLoaded: true,
       };
     case ActionType.REQUIRED_AUTHORIZATION:
       return {
@@ -46,11 +60,17 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         activeCity: action.payload,
+        isDataLoaded: true,
       };
     case ActionType.CHANGE_SORT_TYPE:
       return {
         ...state,
         sortType: action.payload,
+      };
+    case ActionType.SET_ROOM_LOADING_STATUS:
+      return {
+        ...state,
+        isRoomLoaded: action.payload,
       };
     default:
       return state;
