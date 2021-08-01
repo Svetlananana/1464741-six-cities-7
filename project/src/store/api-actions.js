@@ -25,10 +25,8 @@ export const fetchNearbyOffers = (id) => (dispatch, getState, api) => (
 );
 
 export const fetchRoom = (id) => (dispatch, getState, api) => {
-  dispatch(ActionCreator.setRoomLoadingStatus(false));
   api.get(`${APIRoute.OFFERS}/${id}`)
     .then(({data}) => dispatch(ActionCreator.loadRoom(adaptOfferToClient(data))))
-    .then(() => dispatch(ActionCreator.setRoomLoadingStatus(true)))
     .catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.NOT_FOUND)));
 };
 
@@ -43,10 +41,13 @@ export const login = ({login: email, password}) => (dispatch, getState, api) => 
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);
+      api.defaults.headers['x-token'] = data.token;
       return adaptUserToClient(data);
     })
+    .then((user) => dispatch(ActionCreator.loadUser(user)))
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.MAIN)))
+    .catch((error) =>dispatch(ActionCreator.loginError(error.message)))
 );
 
 export const logout = () => (dispatch, getState, api) => (
@@ -56,7 +57,7 @@ export const logout = () => (dispatch, getState, api) => (
     .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.MAIN)))
 );
 
-export const postReview = ({id, comment, rating}) => (dispatch, getState, api) => (
+export const postReview = ({id, comment, rating}) => (dispatch, getState, api) => {
   api.post(`${APIRoute.REVIEWS}/${id}`,
     {comment, rating},
     {
@@ -66,4 +67,5 @@ export const postReview = ({id, comment, rating}) => (dispatch, getState, api) =
     })
     .then(({data}) => adaptReviewsToClient(data))
     .then((data) => dispatch(ActionCreator.loadReviews(data)))
-);
+    .catch(() => dispatch(ActionCreator.loadReviewError()));
+};

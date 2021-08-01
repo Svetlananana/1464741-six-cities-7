@@ -9,6 +9,9 @@ export const ActionType = {
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   REDIRECT_TO_ROUTE: 'city/redirectToRoute',
   LOGOUT: 'user/logout',
+  LOGIN_ERROR: 'user/error',
+  LOAD_USER: 'user/load',
+
   SET_ROOM_LOADING_STATUS: 'data/setRoomLoadingStatus',
 };
 
@@ -51,6 +54,14 @@ export const ActionCreator = {
   }),
   logout: () => ({
     type: ActionType.LOGOUT,
+  }),
+  loginError: (message) => ({
+    type: ActionType.LOGIN_ERROR,
+    payload: message,
+  }),
+  loadUser: (user) => ({
+    type: ActionType.LOAD_USER,
+    payload: user,
   }),
   setRoomLoadingStatus: (isLoaded) => ({
     type: ActionType.SET_ROOM_LOADING_STATUS,

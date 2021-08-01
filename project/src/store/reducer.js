@@ -8,11 +8,28 @@ const initialState = {
   nearbyOffers: [],
   userData: {},
   room: {},
+  roomDetails: {},
+  loadOffersNearby: {
+    isLoading: true,
+    isSuccess: false,
+    isError: false,
+  },
+  loadRoomDetails: {
+    isLoading: true,
+    isSuccess: false,
+    isError: false,
+  },
+  loadReviews: {
+    isLoading: true,
+    isSuccess: false,
+    isError: false,
+  },
+
   sortType: SortType.DEFAULT,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
+
   isDataLoaded: false,
-  isReviewLoaded: false,
-  isRoomDataLoaded: false,
+  loginError: null,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -27,19 +44,31 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         reviews: action.payload,
-        // isDataLoaded: true,
-        isReviewLoaded: true,
+        loadReviews: {
+          isLoading: false,
+          isSuccess: true,
+          isError: false,
+        },
       };
     case ActionType.LOAD_NEARBY_OFFERS:
       return {
         ...state,
         nearbyOffers: action.payload,
+        loadOffersNearby: {
+          isLoading: false,
+          isSuccess: true,
+          isError: false,
+        },
       };
     case ActionType.LOAD_ROOM:
       return {
         ...state,
         offer: action.payload,
-        isRoomDataLoaded: true,
+        loadRoomDetails: {
+          isLoading: false,
+          isSuccess: true,
+          isError: false,
+        },
       };
     case ActionType.REQUIRED_AUTHORIZATION:
       return {
@@ -72,6 +101,18 @@ export const reducer = (state = initialState, action) => {
         ...state,
         isRoomLoaded: action.payload,
       };
+    case ActionType.LOGIN_ERROR:
+      return {
+        ...state,
+        loginError: action.payload,
+      };
+    case ActionType.LOAD_USER:
+      return {
+        ...state,
+        userData: action.payload,
+        loginError: null,
+      };
+
     default:
       return state;
   }
