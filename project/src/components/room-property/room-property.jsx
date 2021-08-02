@@ -8,7 +8,7 @@ import {AuthorizationStatus, AppRoute} from '../../const';
 import FormReviews from '../reviews-form/reviews-form';
 import OffersList from '../offer-list/offer-list';
 import Map from '../map/map';
-import Reviews from '../reviews/reviews';
+import ReviewsList from '../reviews-list/reviews-list';
 
 const MAX_COUNT_OFFERS = 3;
 const MAX_COUNT_IMAGES = 6;
@@ -127,7 +127,7 @@ export function PropertyRoom({offer, reviews, nearbyOffers, authorizationStatus}
               </div>
             </div>
             <section className="property__reviews reviews">
-              <Reviews reviews={reviews} />
+              <ReviewsList reviews={reviews} />
               {authorizationStatus ===AuthorizationStatus.AUTH && (<FormReviews roomId={id} />)}
             </section>
           </div>
