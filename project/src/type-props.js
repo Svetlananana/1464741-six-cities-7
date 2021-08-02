@@ -60,3 +60,10 @@ export const propReviewTypes = {
   }).isRequired,
 };
 
+export const propTypesUser = {
+  id: PropTypes.number.isRequired,
+  email: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  avatarUrl: PropTypes.string.isRequired,
+  isPro: PropTypes.bool.isRequired,
+};

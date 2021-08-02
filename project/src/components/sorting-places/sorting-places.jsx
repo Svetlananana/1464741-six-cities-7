@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
-import {SortTypes} from '../../const';
+import {SortType} from '../../const';
 import SortingItem from '../sorting-item/sorting-item';
 
 export function SortingPlaces({sortType, onChangeSort}) {
@@ -30,7 +30,7 @@ export function SortingPlaces({sortType, onChangeSort}) {
       <ul className={`places__options places__options--custom
       ${sortingPlacesOpen && 'places__options--opened'}`}
       >
-        {Object.values(SortTypes).map((sort) => (
+        {Object.values(SortType).map((sort) => (
           <SortingItem
             key={sort}
             isActive={sortType === sort}

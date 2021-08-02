@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Offer from '../offer/offer';
-import {PageTypes} from '../../const';
+import {PageType} from '../../const';
 import {propOffersTypes} from '../../type-props';
 
 export default function OffersList({offers, onMouseEnter, onMouseLeave, isMain = true}) {
@@ -13,7 +13,7 @@ export default function OffersList({offers, onMouseEnter, onMouseLeave, isMain =
           isMain={isMain}
           offer={offer}
           key={offer.id}
-          pageTypes={PageTypes[`${isMain ? 'MAIN_PAGE' : 'ROOM_PAGE'}`]}
+          pageTypes={PageType[`${isMain ? 'MAIN_PAGE' : 'ROOM_PAGE'}`]}
           onMouseEnter={() => onMouseEnter(offer.id)}
           onMouseLeave={onMouseLeave}
         />

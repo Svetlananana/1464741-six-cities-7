@@ -1,8 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import generatePath from 'react-router/modules/generatePath';
+import PropTypes from 'prop-types';
 import {formatRating} from '../../utils';
 import {propOfferTypes, propPageTypes} from '../../type-props';
-import PropTypes from 'prop-types';
+import {AppRoute} from '../../const';
+
 
 export default function Offer({ offer, onMouseLeave, onMouseEnter, pageTypes }) {
 
@@ -39,7 +42,7 @@ export default function Offer({ offer, onMouseLeave, onMouseEnter, pageTypes }) 
         </div>
       )}
       <div className={`${imgWrapper} place-card__image-wrapper`}>
-        <Link to={`/offer/${id}`}>
+        <Link to={{pathname: generatePath(AppRoute.ROOM, {id})}}>
           <img className="place-card__image" src={previewImage} width={imgWidth} height={imgHeight} alt="Place"/>
         </Link>
       </div>
@@ -63,7 +66,7 @@ export default function Offer({ offer, onMouseLeave, onMouseEnter, pageTypes }) 
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{title}</Link>
+          <Link to={{pathname: generatePath(AppRoute.ROOM, {id})}}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

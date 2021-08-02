@@ -1,18 +1,20 @@
-export const AppRoutes = {
+export const AppRoute = {
   MAIN: '/',
   LOGIN: '/login',
   FAVORITES: '/favorites',
   ROOM: '/offer/:id',
+  NOT_FOUND: '/not-found',
 };
 
-export const APIRoutes = {
+export const APIRoute = {
   OFFERS: '/hotels',
   REVIEWS: '/comments',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  OFFERS_NEARBY: '/nearby',
 };
 
-export const PageTypes = {
+export const PageType = {
   MAIN_PAGE: {
     article: 'cities__place-card',
     imgWrapper: 'cities__image-wrapper',
@@ -38,7 +40,30 @@ export const PageTypes = {
   },
 };
 
-export const SortTypes = {
+export const StarsRating = {
+  PERFECT: {
+    value: 5,
+    title: 'perfect',
+  },
+  GOOD: {
+    value: 4,
+    title: 'good',
+  },
+  NOT_BAD: {
+    value: 3,
+    title: 'not bad',
+  },
+  BADLY: {
+    value: 2,
+    title: 'badly',
+  },
+  TERRIBLY: {
+    value: 1,
+    title: 'terribly',
+  },
+};
+
+export const SortType = {
   DEFAULT: 'Popular',
   PRICE_LOW: 'Price: low to high',
   PRICE_HIGH: 'Price: high to low',

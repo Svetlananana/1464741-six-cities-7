@@ -47,3 +47,17 @@ export function adaptReviewsToClient(reviews) {
   const adaptedReviews = reviews.map(adaptReviewToClient);
   return adaptedReviews;
 }
+
+export const adaptUserToClient = (user) => {
+  const adaptedUser = {
+    ...user,
+    avatarUrl: user.avatar_url,
+    isPro: user.is_pro,
+  };
+
+  delete adaptedUser.token;
+  delete adaptedUser.avatar_url;
+  delete adaptedUser.is_pro;
+
+  return adaptedUser;
+};
