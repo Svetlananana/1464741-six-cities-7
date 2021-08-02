@@ -135,7 +135,7 @@ export function PropertyRoom({offer, reviews, nearbyOffers, authorizationStatus}
         <section className="property__map map">
           <Map
             city={city}
-            offers={nearOffers}
+            offers={[offer, ...nearbyOffers]}
             hoveredCard={offer}
           />
         </section>
