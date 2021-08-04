@@ -1,29 +1,44 @@
-import React, {useState} from 'react';
-import FormStarsList from '../form-stars-list/form-stars-list';
+import React, {memo, useState} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {postReview} from '../../store/api-actions';
+import Alert from '@material-ui/lab/Alert';
 import ReviewComment from '../reviews-comment/reviews-comment';
+import FormStarsList from '../form-stars-list/form-stars-list';
+import {ErroreMessage} from '../../const';
 
 const MIN_SIMBOL_COUNT = 50;
 const MAX_SIMBOL_COUNT = 300;
 
-export function FormReviews({roomId, sendReview}) {
+function FormReviews({roomId}) {
+
+  const dispatch = useDispatch();
+
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
+  const [isReviewSending, setReviewSending] = useState(false);
+
   const isValid = review.length > MIN_SIMBOL_COUNT && rating &&  review.length < MAX_SIMBOL_COUNT;
 
   function onFormSubmit(evt) {
     evt.preventDefault();
-    sendReview({id: roomId, comment: review, rating: rating});
-    setRating(0);
-    setReview('');
+    setReviewSending(false);
+    dispatch(postReview({id: roomId, comment: review, rating: rating}))
+      .then(() => {
+        setRating(0);
+        setReview('');
+      })
+      .catch(() => {
+        setReviewSending(true);
+      });
+
   }
 
   return (
     <form className="reviews__form form" action="#" method="post"
       onSubmit={(evt) => onFormSubmit(evt)}
     >
+      {isReviewSending && <Alert severity="info">{ErroreMessage.REVIEW_ERROR}</Alert>}
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <FormStarsList rating={rating}
         setRating={setRating}
@@ -33,8 +48,8 @@ export function FormReviews({roomId, sendReview}) {
         <p className="reviews__help">
         To submit review please make sure to set
           <span className="reviews__star">rating</span>
-          and describe your stay with at least
-          <b className="reviews__text-amount">50 characters</b>.
+          and describe your stay with at least&nbsp;
+          <b className="reviews__text-amount">{MIN_SIMBOL_COUNT} characters</b>.
         </p>
         <button className="reviews__submit form__submit button" type="submit"
           disabled={!isValid}
@@ -51,11 +66,6 @@ FormReviews.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-  sendReview: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = {
-  sendReview: postReview,
-};
-
-export default connect(null, mapDispatchToProps)(FormReviews);
+export default memo(FormReviews);

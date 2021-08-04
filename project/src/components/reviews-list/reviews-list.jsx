@@ -1,16 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {propReviewTypes} from '../../type-props';
+import {useSelector} from 'react-redux';
 import Review from '../review/review';
+import {getReviews, getSortedReviews} from '../../store/data/selectors';
+import {MAX_REVIEWS_COUNT} from '../../const';
 
-const MAX_REVIEWS_COUNT = 10;
+export default function ReviewsList() {
 
-export default function ReviewsList({reviews}) {
-
-  const sortedReviews = reviews.slice(0, MAX_REVIEWS_COUNT).sort((firstReview, secondReview) => (new Date(secondReview.date) - new Date(firstReview.date)));
+  const reviews = useSelector(getReviews);
+  const sortedReviews = useSelector(getSortedReviews);
 
   return(
-    <React.Fragment>
+    <>
       <h2 className="reviews__title">Reviews &middot;
         <span className="reviews__amount">{sortedReviews.length}
         &nbsp;{reviews.length > MAX_REVIEWS_COUNT ? `(${reviews.length})` : ''}
@@ -21,12 +21,6 @@ export default function ReviewsList({reviews}) {
           <Review key={review.id} review={review} />
         ))}
       </ul>
-    </React.Fragment>
+    </>
   );
 }
-
-ReviewsList.propTypes = {
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape(propReviewTypes).isRequired,
-  ).isRequired,
-};

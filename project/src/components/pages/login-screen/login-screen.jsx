@@ -1,15 +1,18 @@
 import React, {useRef} from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {login} from '../../../store/api-actions';
-import {AppRoute} from '../../../const';
+import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
-import Header from '../../header/header';
-// import ErrorMessage from '../../error-message/error-message';
 import Alert from '@material-ui/lab/Alert';
+import Header from '../../header/header';
+import {login} from '../../../store/api-actions';
+import {getLoginError} from '../../../store/user/selectors';
+import {getActiveCity} from '../../../store/main/selectors';
+import {ErroreMessage, AppRoute} from '../../../const';
 
+export default function LoginScreen() {
 
-export function LoginScreen({activeCity, onSubmit, loginError}) {
+  const activeCity = useSelector(getActiveCity);
+  const loginError = useSelector(getLoginError);
+  const dispatch = useDispatch();
 
   const loginRef = useRef();
   const passwordRef = useRef();
@@ -17,10 +20,10 @@ export function LoginScreen({activeCity, onSubmit, loginError}) {
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    onSubmit({
+    dispatch(login({
       login: loginRef.current.value,
       password: passwordRef.current.value,
-    });
+    }));
   }
 
   function handleEmailValidСhange(evt) {
@@ -45,8 +48,7 @@ export function LoginScreen({activeCity, onSubmit, loginError}) {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            {/* {loginError && <p>Что-то не так...{loginError}</p>} */}
-            {loginError && <Alert severity="info">This is an info alert — check it out!</Alert>} {/* можно оставить пакетный алерт? */}
+            {loginError && <Alert severity="info">{ErroreMessage.LOGIN_ERROR}</Alert>}
             <form onSubmit={handleSubmit} className="login__form form" action="#" method="post">
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
@@ -72,21 +74,3 @@ export function LoginScreen({activeCity, onSubmit, loginError}) {
   );
 }
 
-LoginScreen.propTypes = {
-  activeCity: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  loginError: PropTypes.string,
-};
-
-const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
-  loginError: state.loginError,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    dispatch(login(authData));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

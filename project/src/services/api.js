@@ -4,14 +4,13 @@ const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
 
 const HttpCode = {
-  BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
-  NOT_FOUND: 404,
 };
 
 const token = localStorage.getItem('token') ?? '';
+const getToken = () => localStorage.getItem('token') ?? '';
 
-export const createAPI = (onUnauthorized, onNotFound) => { // доделать обработчики ошибок
+export const createAPI = (onUnauthorized) => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
@@ -30,21 +29,16 @@ export const createAPI = (onUnauthorized, onNotFound) => { // доделать �
       throw err;
     }
 
-    if (response.status === HttpCode.BAD_REQUEST) {
-      // eslint-disable-next-line no-console
-      console.log('BAD REQUEST:', response);
-      throw err;
-    }
-
-    if (response.status === HttpCode.NOT_FOUND) {
-      onNotFound();
-      throw err;
-    }
-
     throw err;
   };
 
   api.interceptors.response.use(onSuccess, onFail);
+
+  api.interceptors.request.use((config) => {
+    const currentToken = getToken();
+    config.headers['x-token'] = currentToken;
+    return config;
+  });
 
   return api;
 };

@@ -12,6 +12,7 @@ export const APIRoute = {
   LOGIN: '/login',
   LOGOUT: '/logout',
   OFFERS_NEARBY: '/nearby',
+  FAVORITES: '/favorite',
 };
 
 export const PageType = {
@@ -37,6 +38,26 @@ export const PageType = {
     divCardInfo: '',
     imgWidth: '260',
     imgHeight: '200',
+  },
+};
+
+export const PageSubtype = {
+  MAIN_PAGE: 'MAIN_PAGE',
+  FAVORITES_PAGE: 'FAVORITES_PAGE',
+  ROOM_PAGE: 'ROOM_PAGE',
+  PAGE: 'PAGE',
+};
+
+export const FavoritesButtonType = {
+  PAGE: {
+    buttonClassName: 'place-card',
+    imgWidth: '18',
+    imgHeight: '19',
+  },
+  ROOM_PAGE: {
+    buttonClassName: 'property',
+    imgWidth: '31',
+    imgHeight: '33',
   },
 };
 
@@ -78,3 +99,12 @@ export const AuthorizationStatus = {
 
 export const CITIES_NAMES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 export const DEFAULT_CITY = CITIES_NAMES[0];
+
+export const MAX_REVIEWS_COUNT = 10;
+
+export const ErroreMessage = {
+  DEFAULT: 'Что-то пошло не так..',
+  REVIEW_ERROR: 'Сообщение не отправилось. Попробуйте ещё раз!',
+  LOGIN_ERROR: 'Проверьте корректность ввода',
+};
+

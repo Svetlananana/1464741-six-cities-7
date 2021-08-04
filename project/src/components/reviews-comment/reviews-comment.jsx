@@ -16,6 +16,6 @@ export default function ReviewComment({review, setReview}) {
 }
 
 ReviewComment.propTypes = {
-  review: PropTypes.string,
+  review: PropTypes.string.isRequired,
   setReview: PropTypes.func.isRequired,
 };

@@ -1,7 +1,7 @@
 import React from 'react';
-import {formatRating} from '../../utils';
 import PropTypes from 'prop-types';
 import {propReviewTypes} from '../../type-props';
+import {formatRating} from '../../utils';
 
 export default function Review({review}) {
 
@@ -11,6 +11,7 @@ export default function Review({review}) {
     rating,
     user,
   } = review;
+
   const {
     avatarUrl,
     name,
@@ -23,7 +24,9 @@ export default function Review({review}) {
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={avatarUrl} width="54" height="54" alt="Reviews avatar"/>
+          <img className="reviews__avatar user__avatar" src={avatarUrl}
+            width="54" height="54" alt="Reviews avatar"
+          />
         </div>
         <span className="reviews__user-name">
           {name}
@@ -48,7 +51,6 @@ export default function Review({review}) {
     </li>
   );
 }
-
 
 Review.propTypes = {
   review: PropTypes.shape(propReviewTypes).isRequired,

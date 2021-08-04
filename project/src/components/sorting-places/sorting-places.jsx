@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
-import {SortType} from '../../const';
+import React, {memo, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import SortingItem from '../sorting-item/sorting-item';
+import {changeSortType} from '../../store/actions';
+import {getSortType} from '../../store/main/selectors';
+import {SortType} from '../../const';
 
-export function SortingPlaces({sortType, onChangeSort}) {
+function SortingPlaces() {
+
+  const dispatch = useDispatch();
+  const sortType = useSelector(getSortType);
 
   const [sortingPlacesOpen, setSortingPlacesOpen] = useState(false);
 
@@ -14,15 +17,15 @@ export function SortingPlaces({sortType, onChangeSort}) {
   }
 
   function handleSortingChange(type) {
-    onChangeSort(type);
-    setSortingPlacesOpen(false);
+    dispatch(changeSortType(type));
+    handleSortingClick();
   }
 
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex="0" onClick={handleSortingClick}>
-        { sortType}
+        {sortType}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
@@ -43,19 +46,4 @@ export function SortingPlaces({sortType, onChangeSort}) {
   );
 }
 
-SortingPlaces.propTypes = {
-  sortType: PropTypes.string.isRequired,
-  onChangeSort: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  sortType: state.sortType,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeSort(sortType) {
-    dispatch(ActionCreator.changeSortType(sortType));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SortingPlaces);
+export default memo(SortingPlaces);

@@ -1,13 +1,14 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Link} from 'react-router-dom';
 import generatePath from 'react-router/modules/generatePath';
+import FavoritesButton from '../favorites-button/favorites-button';
 import PropTypes from 'prop-types';
-import {formatRating} from '../../utils';
 import {propOfferTypes, propPageTypes} from '../../type-props';
-import {AppRoute} from '../../const';
+import {AppRoute, PageSubtype} from '../../const';
+import {formatRating} from '../../utils';
 
 
-export default function Offer({ offer, onMouseLeave, onMouseEnter, pageTypes }) {
+function Offer({ offer, onMouseLeave, onMouseEnter, pageTypes }) {
 
   const {
     id,
@@ -28,8 +29,6 @@ export default function Offer({ offer, onMouseLeave, onMouseEnter, pageTypes }) 
     imgHeight,
   } = pageTypes;
 
-  const isActiveButtonClass = isFavorite ? 'place-card__bookmark-button--active' : '';
-
   return (
     <article
       className={`${article} place-card`}
@@ -43,7 +42,9 @@ export default function Offer({ offer, onMouseLeave, onMouseEnter, pageTypes }) 
       )}
       <div className={`${imgWrapper} place-card__image-wrapper`}>
         <Link to={{pathname: generatePath(AppRoute.ROOM, {id})}}>
-          <img className="place-card__image" src={previewImage} width={imgWidth} height={imgHeight} alt="Place"/>
+          <img className="place-card__image" src={previewImage}
+            width={imgWidth} height={imgHeight} alt="Place"
+          />
         </Link>
       </div>
       <div className={`${divCardInfo} place-card__info`}>
@@ -52,12 +53,7 @@ export default function Offer({ offer, onMouseLeave, onMouseEnter, pageTypes }) 
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isActiveButtonClass} button`} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <FavoritesButton id={id} buttonType={PageSubtype.PAGE} isFavorite={isFavorite} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -78,5 +74,7 @@ Offer.propTypes = {
   onMouseLeave: PropTypes.func,
   onMouseEnter: PropTypes.func,
   offer: PropTypes.shape(propOfferTypes).isRequired,
-  pageTypes: PropTypes.shape(propPageTypes),
+  pageTypes: PropTypes.shape(propPageTypes).isRequired,
 };
+
+export default memo(Offer);

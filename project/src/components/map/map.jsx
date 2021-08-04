@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, memo} from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
@@ -17,7 +17,7 @@ const activeIcon = L.icon({
   iconAnchor: [15, 30],
 });
 
-export default function Map({city, offers, hoveredCard}) {
+function Map({city, offers, hoveredCard}) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -81,3 +81,4 @@ Map.propTypes = {
   hoveredCard: PropTypes.object.isRequired,
 };
 
+export default memo(Map);

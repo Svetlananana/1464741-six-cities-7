@@ -1,19 +1,21 @@
 import React from 'react';
-import {Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {propOffersTypes, propReviewTypes} from '../../type-props';
-import PropTypes from 'prop-types';
-import {formatRating} from '../../utils';
-import {AuthorizationStatus, AppRoute} from '../../const';
+import {useSelector} from 'react-redux';
 import FormReviews from '../reviews-form/reviews-form';
 import OffersList from '../offer-list/offer-list';
 import Map from '../map/map';
 import ReviewsList from '../reviews-list/reviews-list';
+import FavoritesButton from '../favorites-button/favorites-button';
+import PropTypes from 'prop-types';
+import {propOfferTypes, propOffersTypes} from '../../type-props';
+import {getAuthorizationStatus} from '../../store/user/selectors';
+import {AuthorizationStatus, PageSubtype} from '../../const';
+import {formatRating} from '../../utils';
+
 
 const MAX_COUNT_OFFERS = 3;
 const MAX_COUNT_IMAGES = 6;
 
-export function PropertyRoom({offer, reviews, nearbyOffers, authorizationStatus}) {
+export default function PropertyRoom({offer, nearbyOffers}) {
 
   const {
     id,
@@ -38,10 +40,7 @@ export function PropertyRoom({offer, reviews, nearbyOffers, authorizationStatus}
     name,
   } = host;
 
-  if (offer.id === undefined) {
-    return <Redirect to={AppRoute.NOT_FOUND}/>;
-  }
-
+  const authorizationStatus = useSelector(getAuthorizationStatus);
   const nearOffers =  nearbyOffers.filter((card) => card !== offer).slice(0, MAX_COUNT_OFFERS);
 
   return (
@@ -67,12 +66,7 @@ export function PropertyRoom({offer, reviews, nearbyOffers, authorizationStatus}
               <h1 className="property__name">
                 {title}
               </h1>
-              <button className={`property__bookmark-button button ${isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
-                <svg className="property__bookmark-icon" width="31" height="33">
-                  <use xlinkHref="#icon-bookmark"></use>
-                </svg>
-                <span className="visually-hidden">To bookmarks</span>
-              </button>
+              <FavoritesButton id={id} buttonType={PageSubtype.ROOM_PAGE} isFavorite={isFavorite} />
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
@@ -127,7 +121,7 @@ export function PropertyRoom({offer, reviews, nearbyOffers, authorizationStatus}
               </div>
             </div>
             <section className="property__reviews reviews">
-              <ReviewsList reviews={reviews} />
+              <ReviewsList />
               {authorizationStatus ===AuthorizationStatus.AUTH && (<FormReviews roomId={id} />)}
             </section>
           </div>
@@ -157,20 +151,8 @@ export function PropertyRoom({offer, reviews, nearbyOffers, authorizationStatus}
 }
 
 PropertyRoom.propTypes = {
-  offer: PropTypes.shape(propOffersTypes),
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape(propReviewTypes).isRequired),
+  offer: PropTypes.shape(propOfferTypes).isRequired,
   nearbyOffers: PropTypes.arrayOf(
-    PropTypes.shape(propOffersTypes),
-  ),
-  authorizationStatus: PropTypes.string.isRequired,
+    PropTypes.shape(propOffersTypes).isRequired,
+  ).isRequired,
 };
-
-const mapStateToProps = (state) => ({
-  offer: state.offer,
-  nearbyOffers: state.nearbyOffers,
-  reviews: state.reviews,
-  authorizationStatus: state.authorizationStatus,
-});
-
-export default connect(mapStateToProps)(PropertyRoom);
